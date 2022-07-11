@@ -2,6 +2,15 @@
 
 ***
 
+## ToC
+
+* [Introduction](# Introduction)
+* [Big O](# Big O)
+* **Data Structures**
+  * [Array](# Array)
+
+***
+
 ## Introduction
 
 * Data structure: method to store information
@@ -104,10 +113,92 @@
 * Organizes items sequentially
 * Sometimes called list
 * Elements are stored in continuous memory, accessing is `O(1)`
-* 
+* Static array and Dynamic array
+  * Dynamic array allocate new memory and copy the old array
+  * Append in static array is `O(1)`, in dynamic array is `O(n)`
+
+* Pros
+  * Fast lookup
+  * Fast push / pop
+  * Ordered
+
+* Cons
+  * Slow insertion
+  * Slow deletion
+  * Fixed size (static array)
+
+
+***
+
+## Linked List
+
+* A linear collection of data elements, consisting of a group of nodes which together represent a sequence (**ordered**)
+* Order is not given by elements' physical placement in memory
+* Nodes have reference to adjacent nodes
+* Head node, tail node
+* `NULL` terminated
+* **Sentinel nodes**
+  * In some implementations an extra 'sentinel' or 'dummy' node may be added before the first data record or after the last one
+  * This convention simplifies and accelerates some list-handling algorithms, by ensuring that all links can be safely dereferenced and that every list (even one that contains no data elements) always has a "first" and "last" node
+* Pros
+  * Fast insertion
+  * Fast deletion
+  * Ordered
+  * Flexible size
+* Cons
+  * Slow lookup
+  * More memory
+
+### Singly Linked List
+
+* ![singly_linked_list](D:\OneDrive\NCL\Extracurricular content\DSA\imgs\singly_linked_list.svg)
+
+### Doubly Linked List
+
+* ![doubly_linkede_list](D:\OneDrive\NCL\Extracurricular content\DSA\imgs\doubly_linkede_list.svg)
+* Single vs. Double
+  * Single is a little faster, uses less memory
+  * Double can be traversed from both directions
+
+***
+
+## Hash Table
+
+* Also called Hash map, Dictionary
+
+* A data structure which can *map keys to values*. A hash table uses a *hash function* to compute an index into an array of buckets or slots, from which the desired value can be found
+
+* Implement a linked list
+
+* Basic idea: *Perfect hashing*
+
+  * Suppose key values within range `0` to `N-1` and use an array of size `N` to store records
+  * Then a key can correspond directly to the array location of its associated record
+  * Searching and insertion would require only a single array access and thus `O()1`
+  * However, perfect hashing is rarely practical to implement
+
+* Hash function
+
+  * One-way function
+
+  * Idempotent
+
+  * ```mermaid
+    graph LR;
+    K((Key)) --> H[Hash Function]
+    H --> L((location))
+    ```
+
+  * Two important issues in Hashing (**防，治思想**)
+
+    * How to define a good hash function?
+      * Need to ensure hash function is reasonably random, which means key will be evenly distributed and so reduces key collisions
+    * How to resolve key collisions?
 
 ***
 
 ## Resource
 
 * [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
+* <https://github.com/trekhleb/javascript-algorithms>
+* <https://github.com/TheAlgorithms/Java>
