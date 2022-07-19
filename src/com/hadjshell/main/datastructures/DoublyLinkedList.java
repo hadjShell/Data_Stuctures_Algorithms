@@ -3,9 +3,9 @@ package com.hadjshell.main.datastructures;
 import java.util.StringJoiner;
 
 public class DoublyLinkedList implements MyList{
-    Node head;
-    Node tail;
-    int size;
+    private Node head;
+    private Node tail;
+    private int size;
 
     public DoublyLinkedList() {
         head = null;
