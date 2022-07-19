@@ -8,6 +8,8 @@
 * [Big O](# Big O)
 * **Data Structures**
   * [Array](# Array)
+  * [Linked List](# Linked List)
+  * [Stack & Queue](# Stack & Queue)
 
 ***
 
@@ -111,7 +113,7 @@
 ## Array
 
 * Organizes items sequentially
-* Sometimes called list
+* Sometimes called **list**
 * Elements are stored in continuous memory, accessing is `O(1)`
 * Static array and Dynamic array
   * Dynamic array allocate new memory and copy the old array
@@ -159,6 +161,49 @@
 * Single vs. Double
   * Single is a little faster, uses less memory
   * Double can be traversed from both directions
+
+***
+
+## Stack & Queue
+
+* Stack
+
+  * A list of objects
+
+  * Three principle operations
+
+    * **push**, which adds an element to the collection
+    * **pop**, which removes the most recently added element that was not yet removed
+    * **peek**, which accesses the top without modifying the stack
+
+    > Limitation of functionalities is sometimes a better choice
+
+  * **LIFO**
+
+* Queue
+
+  * A list of object
+  * Four principle operations
+    * **enqueue**, which adds an element to the rear terminal position
+    * **dequeue**, which removes the element from the front terminal position
+    * **front**, which accesses the front item from the queue
+    * **rear**, which accesses the last item from the queue
+  * **FIFO**
+
+* Both can be implemented by *Array* or *Linked list*, each way has pros and cons
+
+  * Queue normally is not implemented by *Array*
+  * Queue can be implemented by *Stack* (Leetcode 232)
+
+* Pros
+
+  * Fast operations
+  * Limited operations
+  * Ordered
+
+* Cons
+
+  * Slow lookup
 
 ***
 
