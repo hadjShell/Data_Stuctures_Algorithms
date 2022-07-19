@@ -1,7 +1,5 @@
 package com.hadjshell.main.datastructures;
 
-import org.w3c.dom.Node;
-
 import java.util.StringJoiner;
 
 public class SinglyLinkedList implements MyList{

@@ -1,11 +1,12 @@
 package com.hadjshell.test.datastructures;
 
+import com.hadjshell.main.datastructures.DoublyLinkedList;
 import com.hadjshell.main.datastructures.MyList;
 import com.hadjshell.main.datastructures.SinglyLinkedList;
 
 public class ListTest {
     public static void main(String[] args) {
-        MyList list = new SinglyLinkedList();
+        MyList list = new DoublyLinkedList();
         System.out.println(list.isEmpty());
         for(int i = 0; i < 9; i++) {
             list.append(i);
