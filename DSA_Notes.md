@@ -248,7 +248,7 @@
 * Collision resolution strategies
 
   * Separate Chaining
-    * 
+    * Build a linked list for each of the table position
 
   * Linear Probing
 
