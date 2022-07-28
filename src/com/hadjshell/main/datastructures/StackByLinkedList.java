@@ -45,6 +45,9 @@ public class StackByLinkedList implements MyStack{
 
     @Override
     public String toString() {
+        if(isEmpty())
+            return "Empty Stack";
+
         Node cur = head;
         StringBuilder builder = new StringBuilder();
         while (cur != null) {
