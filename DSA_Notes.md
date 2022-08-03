@@ -4,12 +4,13 @@
 
 ## ToC
 
-* [Introduction](# Introduction)
-* [Big O](# Big O)
+* [Introduction](#introduction)
+* [Big O](#big-o)
 * **Data Structures**
-  * [Array](# Array)
-  * [Linked List](# Linked List)
-  * [Stack & Queue](# Stack & Queue)
+  * [Array](#array)
+  * [Linked List](#linked-list)
+  * [Stack & Queue](#stack-&-queue)
+  * [Hash Table](#hash-table)
 
 ***
 
@@ -115,15 +116,14 @@
 * Organizes items sequentially
 * Sometimes called **list**
 * Elements are stored in continuous memory, **accessing is `O(1)`**
+* Array's index is actually a **pointer**
 * Static array and Dynamic array
   * Dynamic array allocate new memory and copy the old array
   * Append in static array is `O(1)`, in dynamic array is `O(n)`
-
 * Pros
   * Fast lookup
   * Fast push / pop
   * Ordered
-
 * Cons
   * Slow insertion
   * Slow deletion
@@ -252,6 +252,27 @@
 
   * Linear Probing
 
+    * No linked list, just array
+
+    * When a key collides with a previously inserted key we simply place it in the next available unused location to the right (if reaching the end go the beginning)
+
+      > There is possibly a key collision in a sequential non-null elements between `null` and `null`
+
+    * Searching
+
+      * Find the position using hash function
+      * Search from here upwards through array looking for key
+      * Searching is deemed unsuccessful if we reach an empty location or end up back where we started
+
+    * Deletion
+
+      * Cannot directly delete the element (new `null` may affect searching)
+      * Two possible approaches
+        * Using a special *linking* (empty character) to mark a deletion - searching does not stop if this character is encountered
+          * Simple but can be slow for searching
+        * Delete the contiguous occupied cells to the right and reinsert them
+          * More costly but faster searching
+
 * Pros
 
   * Fast operations: search, insertion, deletion take `O(1)` on average
@@ -260,7 +281,7 @@
 * Cons
 
   * Slow worst case: operations take `O(N)` in the worst case
-  * Unordered: keys are not stored in a special order
+  * **Unordered**: keys are not stored in a special order
   * Single-directional lookups: look up the value for a given key is `O(1)`, but look up the key for a given value is `O(N)`
   * Not cache-friendly: usage of linked list
 
