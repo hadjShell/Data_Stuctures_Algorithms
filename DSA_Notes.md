@@ -356,8 +356,16 @@
 
 ***
 
-* * 
+## Recursion
 
+* A function being defined is applied within its own definition
+* Stack overflow: keep invoking function without end condition until too much memory is used on the call stack
+* Base case & Recursive case
+* `O(2^N)`: recursive algorithms that solve a problem of size `N`
+  * Can be reduced to `O(N)` by dynamic programming and memorization
+
+* Anything done with a recursion **CAN** be done iteratively
+* Divide and Conquer
 
 ## Resource
 
