@@ -11,6 +11,14 @@
   * [Linked List](#linked-list)
   * [Stack & Queue](#stack-&-queue)
   * [Hash Table](#hash-table)
+  * [Tree](#tree)
+    * [BST](#binary-search-tree)
+    * [AVL Tree](#avl-tree)
+    * [Red-Black Tree](#red-black-tree)
+* **Algorithms**
+  * [Recursion](#recursion)
+  * 
+
 
 ***
 
@@ -283,7 +291,7 @@
   * Slow worst case: operations take `O(N)` in the worst case
   * **Unordered**: keys are not stored in a special order
   * Single-directional lookups: look up the value for a given key is `O(1)`, but look up the key for a given value is `O(N)`
-  * Not cache-friendly: usage of linked list
+  * Not cache-friendly: usage of linked list with separate chaining solution
 
 * Performance of hash map
 
@@ -311,6 +319,45 @@
 
 
 ***
+
+## Tree
+
+* Tree is a data structure where the data is organized in a hierarchical structure. There should be one root node (which does not have any parent) and all subsequent nodes are represented as children of the root node and its children
+* If a node has at least one child, it is called `internal` node and nodes with no children are called `leaf` nodes
+
+### Binary Search Tree
+
+* A binary tree that left child node < parent node < right child node
+* Perfect binary tree: every node except leaf nodes has exactly two child nodes
+* Full binary tree: every node except leaf nodes has zero or two child nodes
+* Searching, insertion, deletion - `O(log N)` for balanced BST, `O(N)` for unbalanced BST
+  * For a perfect binary tree, its level is equal to `log (N + 1)`, which is approximately `log N`
+* Deletion
+  * Minimum in right subtree, or
+  * Maximum in left subtree
+
+### AVL Tree
+
+* A self-balancing BST
+
+### Red-Black Tree
+
+* A self-balancing BST
+
+***
+
+## Binary Heap
+
+## Priority Queue
+
+## Trie
+
+## Graph
+
+***
+
+* * 
+
 
 ## Resource
 
