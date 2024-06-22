@@ -6,7 +6,7 @@
 
 * [Introduction](#introduction)
 * [Big O](#big-o)
-* **Data Structures**
+* [**Data Structures**](#data-structures)
   * [Array](#array)
   * [Linked List](#linked-list)
   * [Stack & Queue](#stack-&-queue)
@@ -15,7 +15,7 @@
     * [BST](#binary-search-tree)
     * [AVL Tree](#avl-tree)
     * [Red-Black Tree](#red-black-tree)
-* **Algorithms**
+* [**Algorithms**](#algorithms)
   * [Recursion](#recursion)
   * 
 
@@ -119,12 +119,15 @@
 
 ***
 
-## Array
+## Data Structures
+
+### Array
 
 * Organizes items sequentially
 * Sometimes called **list**
 * Elements are stored in continuous memory, **accessing is `O(1)`**
 * Array's index is actually a **pointer**
+* Array can be empty, i.e. no elements, no memory allocated
 * Static array and Dynamic array
   * Dynamic array allocate new memory and copy the old array
   * Append in static array is `O(1)`, in dynamic array is `O(n)`
@@ -140,7 +143,7 @@
 
 ***
 
-## Linked List
+### Linked List
 
 * A linear collection of data elements, consisting of a group of nodes which together represent a sequence (**ordered**)
 * Order is not given by elements' physical placement in memory
@@ -164,11 +167,11 @@
   * Slow lookup
   * More memory
 
-### Singly Linked List
+#### Singly Linked List
 
 * ![singly_linked_list](https://raw.githubusercontent.com/hadjShell/Data_Stuctures_Algorithms/main/imgs/singly_linked_list.svg?token=GHSAT0AAAAAABNGJ6OLI7HZSWGWFUV7HSE2YXCSJKA)
 
-### Doubly Linked List
+#### Doubly Linked List
 
 * ![doubly_linkede_list](https://raw.githubusercontent.com/hadjShell/Data_Stuctures_Algorithms/main/imgs/doubly_linkede_list.svg?token=GHSAT0AAAAAABNGJ6OKIV7ZNLW2N27T7JDQYXCSJCA)
 * Single vs. Double
@@ -177,7 +180,7 @@
 
 ***
 
-## Stack & Queue
+### Stack & Queue
 
 * Stack
 
@@ -220,7 +223,7 @@
 
 ***
 
-## Hash Table
+### Hash Table
 
 * Also called *Hash Map*, *Dictionary*
 
@@ -320,12 +323,12 @@
 
 ***
 
-## Tree
+### Tree
 
 * Tree is a data structure where the data is organized in a hierarchical structure. There should be one root node (which does not have any parent) and all subsequent nodes are represented as children of the root node and its children
 * If a node has at least one child, it is called `internal` node and nodes with no children are called `leaf` nodes
 
-### Binary Search Tree
+#### Binary Search Tree
 
 * A binary tree that left child node < parent node < right child node
 * Perfect binary tree: every node except leaf nodes has exactly two child nodes
@@ -336,27 +339,29 @@
   * Minimum in right subtree, or
   * Maximum in left subtree
 
-### AVL Tree
+#### AVL Tree
 
 * A self-balancing BST
 
-### Red-Black Tree
+#### Red-Black Tree
 
 * A self-balancing BST
 
 ***
 
-## Binary Heap
+### Binary Heap
 
-## Priority Queue
+### Priority Queue
 
-## Trie
+### Trie
 
-## Graph
+### Graph
 
 ***
 
-## Recursion
+## Algorithms
+
+### Recursion
 
 * A function being defined is applied within its own definition
 * Stack overflow: keep invoking function without end condition until too much memory is used on the call stack
@@ -366,6 +371,12 @@
 
 * Anything done with a recursion **CAN** be done iteratively
 * Divide and Conquer
+
+***
+
+### Sorting
+
+
 
 ## Resource
 
