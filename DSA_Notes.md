@@ -86,29 +86,39 @@
   * Need to measure performance of different algorithms to allow us to compare them
   * Interested in efficiency of an algorithm
     * **Time**: how fast does an algorithm run
-    * **Space**: how much memory is required
+    * **Space**: how much memory is required **simultaneously**
   * Experimental approach: limited
   * Theoretical approach: Complexity analysis
 
 * Big O Notation
 
-  * Give an approximately **upper bound** (worst case) on an algorithm complexity
+  * Give an approximately **upper bound** on an algorithm complexity
   * `O(f(N))`: indicate the approximate number of **operations** required by an algorithm for input size `N`
   * ![BIG_O](https://raw.githubusercontent.com/hadjShell/Data_Stuctures_Algorithms/main/imgs/BIG_O.png?token=GHSAT0AAAAAABNGJ6OKMZMAAS7CXXJAPW5IYXCSHVQ)
 
   * Big O is a classification system that groups together algorithms that have similar performance. Enable us to quickly compare different algorithms
   * Extra effort to calculate exact bounds is normally unnecessary (is sometimes)
   * Two algorithms with same Big O performance may not behave exactly the same in practice
-  * Rules
-    * Only consider dominant arithmetic terms as input size `N` approaches infinity
-    * Adding, subtracting, multiplying, or dividing a Big O performance bound by a constant factor does not change it, doesn't matter how big the constant factor is
-    * Different terms for multiple inputs
+  * Big Omega Ω: lower bound on performance
+  * Big Theta θ: bounded above and below
+
+* Rules
+  * Drop the non-dominant arithmetic terms
+
     * `O(f(N) + g(N)) = O(max(f(N), g(n)))`
     * `O(f(N)) * O(g(N)) = O(f(N) * g(N))`
 
-* Big Omega Ω: lower bound on performance (best case)
+  * Drop the constants
 
-* Big Theta θ: bounded above and below (average case)
+    * Adding, subtracting, multiplying, or dividing a Big O performance bound by a constant factor does not change it, doesn't matter how big the constant factor is
+
+  * Different terms for multiple inputs
+
+  * Functional call can cost more than `O(1)`
+
+  * > Generally speaking, when you see an algorithm with multiple recursive calls, you're looking at exponential runtime
+
+  * We can also approach the runtime by thinking about what the code is supposed to be doing
 
 * Algorithm analysis case
 
@@ -366,9 +376,6 @@
 * A function being defined is applied within its own definition
 * Stack overflow: keep invoking function without end condition until too much memory is used on the call stack
 * Base case & Recursive case
-* `O(2^N)`: recursive algorithms that solve a problem of size `N`
-  * Can be reduced to `O(N)` by dynamic programming and memorization
-
 * Anything done with a recursion **CAN** be done iteratively
 * Divide and Conquer
 
@@ -376,7 +383,53 @@
 
 ### Sorting
 
+#### Bubble Sort
 
+#### Selection Sort
+
+#### Insertion Sort
+
+#### Merge Sort
+
+#### Quick Sort
+
+***
+
+### Searching
+
+* Fundamental task needed in most computing systems
+
+#### Sequential Search
+
+#### Binary Search
+
+* Divide and conquer
+
+* Works on a sorted array
+
+* ```markdown
+  Algorithm 	binarySearch
+  Inputs			A: Array of Integers; key: Integer; L, R: Integer
+  Variables		m: Integer
+  Return			Integer
+  
+  Begin
+  	if R < L then return -1
+  	m := (R + L) / 2
+  	if key = A[m] then return m
+  	else if key > A[m] then
+  		return binarySearch(A, key, m + 1, R)
+    else
+    	return binarySearch(A, key, l, m - 1)
+  End
+  ```
+
+* Performance
+
+  * Best case: O(1)
+  * Worst case: O(logN)
+
+***
 
 ## Resource
 
