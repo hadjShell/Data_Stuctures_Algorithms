@@ -383,15 +383,256 @@
 
 ### Sorting
 
+* Comparison sort and non-comparison sort
+* Comparison sort cannot really beat O(N*logN)
+
 #### Bubble Sort
+
+* Find the biggest element in the unsorted array and bubble it up to the end
+
+  * unsorted + sorted
+
+* ```markdown
+  Algorithm 	bubbleSort
+  Inputs			A: Array of Integers
+  Variables		n, i: Integer; swapped: Boolean
+  
+  Begin
+  	n := size(A)
+  	do
+  		swapped := false
+  		for i := 1 to n - 1 do
+  			if A[i - 1] > A[i] then 
+  				swap(A[i-1], A[i])
+  				swapped := true
+      n := n - 1
+  	while not swapped
+  End
+  ```
+
+* Only for educational purpose
+
+* Performance
+
+  * Best case: O(N) for a sorted array
+  * Worst case: O(N^2^)
+  * Average case: O(N^2^)
+  * Space: O(1)
 
 #### Selection Sort
 
+* Scan and select the smallest element in the unsorted array and swap it with the leftmost unsorted element
+
+  * sorted + unsorted
+
+* ```markdown
+  Algorithm		selectionSort
+  Inputs			A: Array of Integers
+  Variables		i, j, smallest: Integers
+  
+  Begin
+  	for i := 0 to size(A) - 1 do
+  		smallest := i
+  		for j:= i + 1 to size(A) - 1 do
+  			if A[j] < A[i] then
+  				smallest = j
+      swap(A[i], A[smallest])
+  End
+  ```
+
+* Only for educational purpose
+* Performance
+  * O(N^2^)
+  * Space: O(1)
+
 #### Insertion Sort
+
+* Consider one element at a time and insert it into its correct positiion in the sorted array
+
+  * sorted + unsorted
+
+* ```markdown
+  Algorithm 	insertionSort
+  Inputs			A: Array of Integers
+  Variables		i, j, key: Integers
+  
+  Begin
+  	for i:= 1 to size(A) - 1 do
+  		key := A[i]
+  		j := i
+  		while j > 0 and key < A[j - 1] do
+  			A[j] := A[j - 1]
+  			j := j - 1
+      A[j] := key
+  End
+  ```
+
+* Works well for small array (typically between 7 and 50 elements) or nearly sorted array
+
+* Performance
+
+  * Best case: O(N) for a sorted array
+  * Worst case: O(N^2^)
+  * Average case: O(N^2^)
+  * Space: O(1)
+
+* Refinement
+
+  * Add a sentinel element make it the smallest
+  * So that the comparison `j > 0` can be omitted in the beginning of the loop
 
 #### Merge Sort
 
+* Idea
+
+  * Divide the unsorted list into *n* sublists, each containing one element (a list of one element is considered sorted)
+  * Repeatedly merge sublists to produce new sorted sublists until there is only one sublist remaining. This will be the sorted list
+
+* ```markdown
+  Algorithm		mergeSort
+  Inputs			A: Array of Integers
+  Variables		i: Integer; left, right: Array of Integers
+  
+  Begin
+  	if size(A) <= 1 then	return A
+  	
+  	left := empty array
+  	right := empty array
+  	for i:= 0 to size(A) - 1 do
+    	if i < size(A) / 2 then
+    		left.add(A[i])
+      else
+      	right.add(A[i])
+    
+    left := mergeSort(left)
+    right := mergeSort(right)
+    
+    return merge(left, right)  
+  End
+  ```
+
+* ```markdown
+  Algorithm		merge
+  Inputs			left, right: Array of Integers
+  Variables		result: Array of Integers
+  
+  Begin
+  	result := empty list
+  
+  	while left is not empty and right is not empty do
+      if first(left) ≤ first(right) then
+      	append first(left) to result
+        left := rest(left)
+      else
+        append first(right) to result
+        right := rest(right)
+        
+  	while left is not empty do
+        append first(left) to result
+        left := rest(left)
+  	while right is not empty do
+        append first(right) to result
+        right := rest(right)
+  	return result
+  End
+  ```
+
+* Overall great but requires more space, stable sort
+
+* Performance
+
+  * O(N*logN)
+  * Space: O(N)
+
 #### Quick Sort
+
+* Idea
+
+  * Choose rightmost value in the array as pivot v
+  * Rearrange (partition) the array so that v is in its correct place, i.e.
+    * Every element to left is smaller than v
+    * Every element to right is larger than v
+  * Recursively apply above to left hand side and right hand side of the array
+  * When a partition contains only one element then the recursion ends
+
+* ```markdown
+  Algorithm 	quickSort
+  Inputs			A: Array of Integers
+  Variables		p: Integer
+  
+  Begin
+  	if (R > L) then
+  		p := partition(A, L, R)
+  		quickSort(A, L, p - 1)
+  		quickSort(A, p + 1, R)
+  End
+  
+  p - index of the pivot in the correct place
+  ```
+
+* ```markdown
+  Algorithm 	partition
+  Inputs			A: Array of Integers; L, R: Integer
+  Variables		pL, pR, v: Integer
+  Return			Integer
+  
+  Begin
+  	v := A[R]
+  	pL := L; pR := R
+  	while pL < pR do
+  		while A[pL] < v do 
+  			pL := pL + 1
+  		while A[pR] >= v and pR > L do
+  			pR := pR - 1
+      if pL < pR then
+      	swap(A[pL], A[pR])
+  	swap(A[pL], A[R])
+  	return pL
+  End
+  ```
+
+* Practically faster than Merge Sort and Heap Sort, in-place sort
+
+* Performance
+
+  * Best case, Average case: O(N*logN)
+  * Worst case: O(N^2^)
+    * Occurs when the partition size are as uneven as possible
+    * Bad choice of pivot
+    * Sorted array when the last element is chosed as pivot
+  * Space: O(logN)
+
+* Refinement
+
+  * Smarter choice of pivot
+
+  * Leaves array nearly sorted and then complete sorting using Insertion Sort efficiently
+
+  * ```markdown
+    Begin
+    	if (R - L > few) then
+    		p := partition(A, L, R)
+    		quickSort(A, L, p - 1)
+    		quickSort(A, p + 1, R)
+    End
+    ```
+
+  * Experimentation suggests `few` is between 5 and 25
+
+#### Heap Sort
+
+
+
+#### Counting Sort
+
+* Integer sorting algorithm
+* Works best when the range of numbers for each array element is very small
+
+#### Radix Sort
+
+* Integer sorting algorithm
+
+#### Bucket Sort
 
 ***
 
@@ -419,7 +660,7 @@
   	if key = A[m] then return m
   	else if key > A[m] then
   		return binarySearch(A, key, m + 1, R)
-    else
+  	else
     	return binarySearch(A, key, l, m - 1)
   End
   ```
