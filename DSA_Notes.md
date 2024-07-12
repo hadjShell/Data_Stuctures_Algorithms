@@ -239,6 +239,8 @@
 
 * A data structure which can *map keys to values*. A hash table uses a *hash function* to compute an index into an array of buckets or slots, from which the desired value can be found
 
+* Key has to be unique, value can be the same
+
 * Implement an array of `Node` with linked list (or self balancing BST)
 
 * Basic idea: *Perfect hashing*
@@ -669,6 +671,15 @@
 
   * Best case: O(1)
   * Worst case: O(logN)
+
+***
+
+### Greedy
+
+* A greedy algorithm is a problem-solving technique that makes the best local choice at each step in the hope of finding the global optimum solution
+* 
+
+
 
 ***
 
