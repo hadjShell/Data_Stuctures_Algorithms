@@ -1,24 +1,5 @@
 # Data Structures and Algorithms
 
-***
-
-## ToC
-
-* [Introduction](#introduction)
-* [Big O](#big-o)
-* [**Data Structures**](#data-structures)
-  * [Array](#array)
-  * [Linked List](#linked-list)
-  * [Stack & Queue](#stack-&-queue)
-  * [Hash Table](#hash-table)
-  * [Tree](#tree)
-    * [BST](#binary-search-tree)
-    * [AVL Tree](#avl-tree)
-    * [Red-Black Tree](#red-black-tree)
-* [**Algorithms**](#algorithms)
-  * [Recursion](#recursion)
-  * 
-
 
 ***
 
