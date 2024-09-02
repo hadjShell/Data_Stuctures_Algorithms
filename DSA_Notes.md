@@ -199,9 +199,6 @@
 
 * Both can be implemented by *Array* or *Linked list*, each way has pros and cons
 
-  * Queue normally is not implemented by *Array*
-  * Queue can be implemented by *Stack* (Leetcode 232)
-
 * Pros
 
   * Fast operations
@@ -319,18 +316,109 @@
 ### Tree
 
 * Tree is a data structure where the data is organized in a hierarchical structure. There should be one root node (which does not have any parent) and all subsequent nodes are represented as children of the root node and its children
+
 * If a node has at least one child, it is called `internal` node and nodes with no children are called `leaf` nodes
+
+* *Perfect binary tree*: every node except leaf nodes has exactly two child nodes
+
+* *Full binary tree*: every node except leaf nodes has zero or two child nodes
+
+* *Complete binary tree*: a binary tree in which every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible
+
+* Traversal
+
+  * DFS
+
+    * **Three different orders represents three different times when the specific operation is operating on the node**
+
+      * Preorder: operates when the procedure call of current node is just pushed onto the stack
+      * Inorder: operates when the left subtree's operation is executed and the right subtree's operation is about to executed
+      * Postorder: operates when the the procedure call of current node is about to be popped out from the stack
+
+    * ```java
+      void traverseDFS(TreeNode root) {
+          if (root == null) {
+              return;
+          }
+          // preorder
+          traverse(root.left);
+          // inorder
+          traverse(root.right);
+          // postorder
+      }
+      			  1
+          2    	  3
+        4   5   6   7
+      
+      // Example: 	[1,2,3,4,5,6,7]
+      // preorder: 	[1,2,4,5,3,6,7]
+      // inorder:		[4,2,5,1,6,3,7]
+      // postorder:	[4,5,2,6,7,3,1]
+      ```
+
+  * BFS
+
+    * ```java
+      void traverseBFS(TreeNode root) {
+          if (root == null)
+              return;
+        
+          Deque<TreeNode> q = new ArrayDeque<>();
+          q.add(root);
+          int depth = 1;
+          while (!q.isEmpty()) {
+              int sz = q.size();
+              for (int i = 0; i < sz; i++) {
+                  TreeNode cur = q.remove();
+                  System.out.println("depth = " + depth + ", val = " + cur.val);
+                  if (cur.left != null) 
+                      q.add(cur.left);
+                  if (cur.right != null)
+                      q.add(cur.right);
+              }
+              depth++;
+          }
+      }
+      ```
+
 
 #### Binary Search Tree
 
-* A binary tree that left child node < parent node < right child node
-* Perfect binary tree: every node except leaf nodes has exactly two child nodes
-* Full binary tree: every node except leaf nodes has zero or two child nodes
+* A binary tree that `left child node < parent node < right child node`
+
 * Searching, insertion, deletion - `O(log N)` for balanced BST, `O(N)` for unbalanced BST
   * For a perfect binary tree, its level is equal to `log (N + 1)`, which is approximately `log N`
+
+  * ```markdown
+    Algorithm 	findBST
+    Inputs			c: Pointer; key: Integer
+    Returns 		Pointer
+    
+    Begin
+    	if c = NULL then return NULL
+    	else
+    		if c.key() = key then return c
+    		if c.key() > key then
+    			return findBST(c.leftPTR(), key)
+        else
+        	return findBST(c.rightPTR(), key)
+    End
+    
+    c - pointer to current node
+    c.key() - value at node c
+    c.leftPTR() - pointer to left node at c
+    ```
+
 * Deletion
-  * Minimum in right subtree, or
-  * Maximum in left subtree
+  * Node with at most one subtree
+    * Simple delete and change the pointer if needed
+  * Root node & nodes that have two subtrees
+    * Marked as deleted, or
+    * Minimum in right subtree, or
+      * Find next highest node N, i.e., go right then left as far as you can
+      * Delete N (having at most one subtree)
+      * Replace node deleting by node N
+    * Maximum in left subtree
 
 #### AVL Tree
 
@@ -349,6 +437,49 @@
 ### Trie
 
 ### Graph
+
+* A graph consists of a collection of objects (*nodes* / *vertex*) and connections between them (*edges*)
+
+* A superset of non-binary tree
+
+* Types
+
+  * Directed graph
+  * Undirected graph
+  * Weighted graph
+  * Unweighted graph
+  * Cyclic graph
+  * Acyclic graph
+
+* Implementations
+
+  * Adjacent list
+
+    * Vertices are stored as records or objects, and every vertex stores a list of adjacent vertices
+
+  * Adjacent matrix
+
+    * A two-dimensional matrix, in which the rows represent source vertices and columns represent destination vertices
+    * Data on edges and vertices must be stored externally. Only the cost for one edge can be stored between each pair of vertices
+
+  * Incidence matrix
+
+    * A two-dimensional matrix, in which the rows represent the vertices and columns represent the edges
+    * The entries indicate the incidence relation between the vertex at a row and edge at a column
+
+  * |                                                              |                        Adjacency list                        |                       Adjacency matrix                       |                       Incidence matrix                       |
+    | :----------------------------------------------------------- | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+    | Store graph                                                  |                         $O(|V|+|E|)$                         |                          $O(|V|^2)$                          |                        O(\|V\|⋅\|E\|)                        |
+    | Add vertex                                                   |                            $O(1)$                            |                          $O(|V|^2)$                          |                        O(\|V\|⋅\|E\|)                        |
+    | Add edge                                                     |                            $O(1)$                            |                            $O(1)$                            |                        O(\|V\|⋅\|E\|)                        |
+    | Remove vertex                                                |                           $O(|E|)$                           |                          $O(|V|^2)$                          |                        O(\|V\|⋅\|E\|)                        |
+    | Remove edge                                                  |                           $O(|V|)$                           |                            $O(1)$                            |                        O(\|V\|⋅\|E\|)                        |
+    | Are vertices *x* and *y* adjacent (assuming that their storage positions are known)? |                           $O(|V|)$                           |                            $O(1)$                            |                           O(\|E\|)                           |
+    | Remarks                                                      | Slow to remove vertices and edges, because it needs to find all vertices or edges | Slow to add or remove vertices, because matrix must be resized/copied | Slow to add or remove vertices and edges, because matrix must be resized/copied |
+
+    Adjacency lists are generally preferred for **sparse graphs**, while an adjacency matrix is preferred for **dense graphs**
+
+  * The time complexity of operations in the adjacency list representation can be improved by storing the sets of adjacent vertices in more efficient data structures, such as *hash tables* or *balanced BST*
 
 ***
 
