@@ -453,6 +453,8 @@
 
 * Implementations
 
+  * Edge list
+
   * Adjacent list
 
     * Vertices are stored as records or objects, and every vertex stores a list of adjacent vertices
@@ -480,6 +482,38 @@
     Adjacency lists are generally preferred for **sparse graphs**, while an adjacency matrix is preferred for **dense graphs**
 
   * The time complexity of operations in the adjacency list representation can be improved by storing the sets of adjacent vertices in more efficient data structures, such as *hash tables* or *balanced BST*
+
+* Traversal
+
+  * DFS
+
+    * ```java
+      // in case there is a cycle in the graph that causes dead loop
+      boolean[] visited;
+      boolean[] onPath;
+      
+      void dfs(Graph graph, int s) {
+          if (visited[s]) return;
+      
+          visited[s] = true;
+          onPath[s] = true;
+          for (int neighbor : graph.neighbors(s)) {
+              traverse(graph, neighbor);
+          }
+          onPath[s] = false;
+      }
+      ```
+
+    * 
+
+* Dijkstra algorithm
+
+  * Find the shortest path in a non-negative weighted graph
+  * A bit more efficient than Bellman-Ford
+
+* Bellman-Ford algorithm
+
+  * Find the shortest path in a weighted graph
 
 ***
 
@@ -789,7 +823,10 @@
 ### Greedy
 
 * A greedy algorithm is a problem-solving technique that makes the best local choice at each step in the hope of finding the global optimum solution
-* 
+
+***
+
+### Dynamic Programming
 
 
 
