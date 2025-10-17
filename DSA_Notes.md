@@ -5,7 +5,7 @@
 
 ## Introduction
 
-* Data structure: method to store information
+* Data structure: memory for storing information
 
 * Algorithm: method for solving a problem
 
@@ -27,10 +27,10 @@
   * Accessing
   * Insertion
   * Deletion
-  * Traversal
   * Searching
   * Sorting
-  * ![DS_Operation_Performance](https://raw.githubusercontent.com/hadjShell/Data_Stuctures_Algorithms/main/imgs/DS_Operation_Performance.png?token=GHSAT0AAAAAABNGJ6OK25Z5YUNY7SD7TDRWYXCSH7Q)
+  * Traversal
+  * ![DS_Operation_Performance](imgs/DS_Operation_Performance.png)
 
 * Pseudo code
 
@@ -75,7 +75,7 @@
 
   * Give an approximately **upper bound** on an algorithm complexity
   * `O(f(N))`: indicate the approximate number of **operations** required by an algorithm for input size `N`
-  * ![BIG_O](https://raw.githubusercontent.com/hadjShell/Data_Stuctures_Algorithms/main/imgs/BIG_O.png?token=GHSAT0AAAAAABNGJ6OKMZMAAS7CXXJAPW5IYXCSHVQ)
+  * ![BIG_O](imgs/BIG_O.png)
 
   * Big O is a classification system that groups together algorithms that have similar performance. Enable us to quickly compare different algorithms
   * Extra effort to calculate exact bounds is normally unnecessary (is sometimes)
@@ -157,14 +157,14 @@
 * Cons
   * Slow lookup
   * More memory
+* Singly Linked List
+  * ![singly_linked_list](imgs/singly_linked_list.svg)
 
-#### Singly Linked List
 
-* ![singly_linked_list](https://raw.githubusercontent.com/hadjShell/Data_Stuctures_Algorithms/main/imgs/singly_linked_list.svg?token=GHSAT0AAAAAABNGJ6OLI7HZSWGWFUV7HSE2YXCSJKA)
+* Doubly Linked List
+  * ![doubly_linkede_list](imgs/doubly_linkede_list.svg)
 
-#### Doubly Linked List
 
-* ![doubly_linkede_list](https://raw.githubusercontent.com/hadjShell/Data_Stuctures_Algorithms/main/imgs/doubly_linkede_list.svg?token=GHSAT0AAAAAABNGJ6OKIV7ZNLW2N27T7JDQYXCSJCA)
 * Single vs. Double
   * Single is a little faster, uses less memory
   * Double can be traversed from both directions
@@ -213,15 +213,13 @@
 
 ### Hash Table
 
-* Also called *Hash Map*, *Dictionary*
+* Also called **Hash Map**, **Dictionary**
 
-* A data structure which can *map keys to values*. A hash table uses a *hash function* to compute an index into an array of buckets or slots, from which the desired value can be found
+* A data structure which can **map keys to values**. A hash table uses a **hash function** to compute an index into an array of buckets or slots, from which the desired value can be found
 
 * Key has to be unique, value can be the same
 
-* Implement an array of `Node` with linked list (or self balancing BST)
-
-* Basic idea: *Perfect hashing*
+* Basic idea: **Perfect hashing**
 
   * Suppose key values within range `0` to `N-1` and use an array of size `N` to store records
   * Then a key can correspond directly to the array location of its associated record
@@ -230,7 +228,7 @@
 
 * Hash function
 
-  * One-way function
+  * **One-way** function
 
   * Idempotent
 
@@ -248,10 +246,11 @@
 
 * Collision resolution strategies
 
-  * Separate Chaining
+  * **Separate Chaining**
+    
     * Build a linked list for each of the table position
-
-  * Linear Probing
+    
+  * **Linear Probing**
 
     * No linked list, just array
 
@@ -263,15 +262,15 @@
 
       * Find the position using hash function
       * Search from here upwards through array looking for key
-      * Searching is deemed unsuccessful if we reach an empty location or end up back where we started
+      * Searching is deemed **unsuccessful if we reach an empty location or end up back where we started**
 
     * Deletion
 
       * Cannot directly delete the element (new `null` may affect searching)
       * Two possible approaches
-        * Using a special *linking* (empty character) to mark a deletion - searching does not stop if this character is encountered
+        * Using a special **Ilinking** (empty character) to **mark a deletion** - searching does not stop if this character is encountered
           * Simple but can be slow for searching
-        * Delete the contiguous occupied cells to the right and reinsert them
+        * **Delete the contiguous occupied cells to the right and reinsert them**
           * More costly but faster searching
 
 * Pros
@@ -288,19 +287,19 @@
 
 * Performance of hash map
 
-  * Initial Capacity
+  * **Initial Capacity**
     * It is the capacity of HashMap at the time of its creation (It is the number of buckets a HashMap can hold when the HashMap is instantiated)
 
-  * Load Factor
+  * **Load Factor**
     * It is the percent value of the capacity after which the capacity of HashMap is to be increased (It is the percentage fill of buckets after which Rehashing takes place)
 
   * Threshold
     * Load Factor × Initial Capacity
 
   * Rehashing
-    * It is the process of doubling the capacity of the HashMap after it reaches its Threshold
+    * It is the process of **doubling** the capacity of the HashMap after it reaches its Threshold
 
-  * If the initial capacity is kept higher then rehashing will never be done. But by keeping it higher increases the time complexity of iteration. So it should be chosen very cleverly to increase performance. The expected number of values should be taken into account to set the initial capacity. The most generally preferred load factor value is 0.75 which provides a good deal between time and space costs. The load factor’s value varies between 0 and 1.
+  * If the initial capacity is kept higher then rehashing will never be done. But by keeping it higher increases the time complexity of iteration. So it should be chosen very cleverly to increase performance. The expected number of values should be taken into account to set the initial capacity. The most generally preferred load factor value is **0.75** which provides a good deal between time and space costs. The load factor’s value varies between 0 and 1.
 
 * When Hash Map operations cost `O(N)` time?
 
@@ -319,11 +318,13 @@
 
 * If a node has at least one child, it is called `internal` node and nodes with no children are called `leaf` nodes
 
-* *Perfect binary tree*: every node except leaf nodes has exactly two child nodes
+* *Perfect binary tree*: every node except leaf nodes has exactly two child nodes, all leaf nodes are at the same level
 
 * *Full binary tree*: every node except leaf nodes has zero or two child nodes
 
 * *Complete binary tree*: a binary tree in which every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible
+
+* *Balanced Binary Tree*: The heights of any node’s left and right subtrees differ by at most one
 
 * Traversal
 
@@ -432,13 +433,19 @@
 
 ### Binary Heap
 
+***
+
 ### Priority Queue
+
+***
 
 ### Trie
 
+***
+
 ### Graph
 
-* A graph consists of a collection of objects (*nodes* / *vertex*) and connections between them (*edges*)
+* A graph consists of a collection of objects (*nodes*/*vertex*) and connections between them (*edges*)
 
 * A superset of non-binary tree
 
@@ -468,6 +475,13 @@
 
     * A two-dimensional matrix, in which the rows represent the vertices and columns represent the edges
     * The entries indicate the incidence relation between the vertex at a row and edge at a column
+
+  * Examples
+
+    * Undirected and unweighted
+      * ![uduw_graph](imgs/uduw_graph.png)
+    * Directed and weighted
+      * ![dw_graph](imgs/dw_graph.png)
 
   * |                                                              |                        Adjacency list                        |                       Adjacency matrix                       |                       Incidence matrix                       |
     | :----------------------------------------------------------- | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -504,7 +518,7 @@
       }
       ```
 
-    * 
+  * BFS
 
 * Dijkstra algorithm
 
