@@ -314,27 +314,41 @@
 
 ### Tree
 
-* Tree is a data structure where the data is organized in a hierarchical structure. There should be one root node (which does not have any parent) and all subsequent nodes are represented as children of the root node and its children
+#### Binary Tree
 
-* If a node has at least one child, it is called `internal` node and nodes with no children are called `leaf` nodes
+* Tree is a data structure where the data is organized in a hierarchical structure. There should be one **root node** (which does not have any parent) and all subsequent nodes are represented as children of the root node and its children
 
-* *Perfect binary tree*: every node except leaf nodes has exactly two child nodes, all leaf nodes are at the same level
+* If a node has at least one child, it is called **internal node** and **nodes with no children** are called **leaf nodes**
 
-* *Full binary tree*: every node except leaf nodes has zero or two child nodes
+* **Perfect binary tree**: every node except leaf nodes has exactly two child nodes, all leaf nodes are at the same level
 
-* *Complete binary tree*: a binary tree in which every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible
+* **Full binary tree**: every node except leaf nodes has zero or two child nodes
 
-* *Balanced Binary Tree*: The heights of any node’s left and right subtrees differ by at most one
+* **Complete binary tree**: a binary tree in which every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible
+
+* **Balanced Binary Tree**: The heights of any node’s left and right subtrees differ by at most one
+
+* ![tree](imgs/trees.png)
+
+* Implementation
+
+  * **Tree node**
+
+  * **Array** for complete binary tree
+
+  * **Program stack**
+  
+  * **Hash table**
 
 * Traversal
 
-  * DFS
+  * **DFS**
 
     * **Three different orders represents three different times when the specific operation is operating on the node**
 
-      * Preorder: operates when the procedure call of current node is just pushed onto the stack
-      * Inorder: operates when the left subtree's operation is executed and the right subtree's operation is about to executed
-      * Postorder: operates when the the procedure call of current node is about to be popped out from the stack
+      * **Pre-order**: operates when the procedure call of current node is just pushed onto the stack
+      * **In-order**: operates when the left subtree's operation is executed and the right subtree's operation is about to executed
+      * **Post-order**: operates when the the procedure call of current node is about to be popped out from the stack
 
     * ```java
       void traverseDFS(TreeNode root) {
