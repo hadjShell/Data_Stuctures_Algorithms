@@ -399,7 +399,9 @@
 
 #### Binary Search Tree
 
-* A binary tree that `left child node < parent node < right child node`
+* A binary tree that **`left.val < root.val < right.val`**
+
+* For each node in a BST, **its left subtree and right subtree are BST**
 
 * Searching, insertion, deletion - `O(log N)` for balanced BST, `O(N)` for unbalanced BST
   * For a perfect binary tree, its level is equal to `log (N + 1)`, which is approximately `log N`
@@ -429,11 +431,11 @@
     * Simple delete and change the pointer if needed
   * Root node & nodes that have two subtrees
     * Marked as deleted, or
-    * Minimum in right subtree, or
+    * **Minimum in right subtree**, or
       * Find next highest node N, i.e., go right then left as far as you can
       * Delete N (having at most one subtree)
       * Replace node deleting by node N
-    * Maximum in left subtree
+    * **Maximum in left subtree**
 
 #### AVL Tree
 
@@ -459,7 +461,9 @@
 
 ### Graph
 
-* A graph consists of a collection of objects (*nodes*/*vertex*) and connections between them (*edges*)
+#### Graph
+
+* A graph consists of a collection of objects (**vertex**) and connections between them (**edge**)
 
 * A superset of non-binary tree
 
@@ -467,26 +471,54 @@
 
   * Directed graph
   * Undirected graph
+    * Is technically a **dual-directed graph**
   * Weighted graph
   * Unweighted graph
   * Cyclic graph
   * Acyclic graph
 
+* **Degree**
+
+  * How many edges does a vertex have
+  * Indegree and outdegree for a directed graph
+
+* **Simple graph**
+
+  * Graphs without **self loop** or **parallel edges**
+  * **$E = [0, V*(V - 1) / 2] \approx [0, V^2]$ **
+  * [**Sparse graph** -> **Dense graph**]
+
+* Subgraph
+
+  * **Spanning subgraph**
+    * A subgraph which contains **all vertices and some edges**
+
+  * **Induced subgraph**
+    * A subgraph which contains **some vertices and all edges connecting them**
+
+* Connectivity
+
+  * **Connected graph**
+    * If there is **a path** between any pair of vertices in an **undirected graph**, it is a connected graph
+
+  * **Strongly Connected Graph**
+    * If there is **a directed path** between any pair of vertices in a **directed graph**, it is a strongly connected graph
+
+  * **Weakly Connected Graph**
+    * If there is **a path** between any pair of vertices in a **directed graph after turning into an undirected graph**, it is a weakly connected graph
+
 * Implementations
 
-  * Edge list
+  * **Edge list**
 
-  * Adjacent list
-
+  * **Adjacent list**
     * Vertices are stored as records or objects, and every vertex stores a list of adjacent vertices
 
-  * Adjacent matrix
-
+  * **Adjacent matrix**
     * A two-dimensional matrix, in which the rows represent source vertices and columns represent destination vertices
     * Data on edges and vertices must be stored externally. Only the cost for one edge can be stored between each pair of vertices
 
-  * Incidence matrix
-
+  * **Incidence matrix**
     * A two-dimensional matrix, in which the rows represent the vertices and columns represent the edges
     * The entries indicate the incidence relation between the vertex at a row and edge at a column
 
@@ -496,6 +528,8 @@
       * ![uduw_graph](imgs/uduw_graph.png)
     * Directed and weighted
       * ![dw_graph](imgs/dw_graph.png)
+
+* **Complexity**
 
   * |                                                              |                        Adjacency list                        |                       Adjacency matrix                       |                       Incidence matrix                       |
     | :----------------------------------------------------------- | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -507,41 +541,301 @@
     | Are vertices *x* and *y* adjacent (assuming that their storage positions are known)? |                           $O(|V|)$                           |                            $O(1)$                            |                           O(\|E\|)                           |
     | Remarks                                                      | Slow to remove vertices and edges, because it needs to find all vertices or edges | Slow to add or remove vertices, because matrix must be resized/copied | Slow to add or remove vertices and edges, because matrix must be resized/copied |
 
-    Adjacency lists are generally preferred for **sparse graphs**, while an adjacency matrix is preferred for **dense graphs**
+    **Adjacency lists** are generally preferred for **sparse graphs**, while an **adjacency matrix** is preferred for **dense graphs**
 
-  * The time complexity of operations in the adjacency list representation can be improved by storing the sets of adjacent vertices in more efficient data structures, such as *hash tables* or *balanced BST*
+
+  * Adjacency matrix can leverage matrix operations to solve some subtle problems
+
+  * **The time complexity of operations in the adjacency list** representation can be improved by storing the sets of **adjacent vertices** in more efficient data structures, such as **hash tables** or **balanced BST**
 
 * Traversal
 
-  * DFS
+  * **DFS**
 
     * ```java
+      // 遍历所有节点
+      // O(E + V)
+      
       // in case there is a cycle in the graph that causes dead loop
-      boolean[] visited;
-      boolean[] onPath;
-      
-      void dfs(Graph graph, int s) {
-          if (visited[s]) return;
-      
-          visited[s] = true;
-          onPath[s] = true;
-          for (int neighbor : graph.neighbors(s)) {
-              traverse(graph, neighbor);
+      void traverse(Graph graph, int s, boolean[] visited) {
+          // base case
+          if (s < 0 || s >= graph.size()) {
+              return;
           }
-          onPath[s] = false;
+          if (visited[s]) {
+              // 防止死循环
+              return;
+          }
+          // 前序位置
+          visited[s] = true;
+          System.out.println("visit " + s);
+          for (Edge e : graph.neighbors(s)) {
+              traverse(graph, e.to, visited);
+          }
+          // 后序位置
       }
       ```
 
-  * BFS
+    * ```java
+      // 遍历所有边
+      // O(E + V^2)
+      
+      void traverseEdges(Graph graph, int s, boolean[][] visited) {
+          // base case
+          if (s < 0 || s >= graph.size()) {
+              return;
+          }
+          for (Edge e : graph.neighbors(s)) {
+            // 如果边已经被遍历过，则跳过
+            if (visited[s][e.to]) {
+              continue;
+            }
+            // 标记并访问边
+            visited[s][e.to] = true;
+            System.out.println("visit edge: " + s + " -> " + e.to);
+            traverseEdges(graph, e.to, visited);
+          }
+      }
+      ```
 
-* Dijkstra algorithm
+    * ```java
+      // 遍历图的所有路径，寻找从 src 到 dest 的所有路径
+      
+      // onPath 和 path 记录当前递归路径上的节点
+      boolean[] onPath = new boolean[graph.size()];
+      List<Integer> path = new LinkedList<>();
+      
+      void traverse(Graph graph, int src, int dest) {
+          // base case
+          if (src < 0 || src >= graph.size()) {
+              return;
+          }
+          if (onPath[src]) {
+              // 防止死循环（成环）
+              return;
+          }
+          if (src == dest) {
+              // 找到目标节点
+              System.out.println("find path: " + String.join("->", path) + "->" + dest);
+              return;
+          }
+      
+          // 前序位置
+          onPath[src] = true;
+          path.add(src);
+          for (Edge e : graph.neighbors(src)) {
+              traverse(graph, e.to, dest);
+          }
+          // 后序位置
+          path.remove(path.size() - 1);
+          onPath[src] = false;
+      }
+      
+      // 因为前文遍历节点的代码中，visited 数组的职责是保证每个节点只会被访问一次。而对于图结构来说，要想遍历所有路径，可能会多次访问同一个节点，这是关键的区别。
+      ```
 
-  * Find the shortest path in a non-negative weighted graph
-  * A bit more efficient than Bellman-Ford
+    * **同时使用`visited` and `onPath`**
 
-* Bellman-Ford algorithm
+      * 遍历所有路径的算法复杂度较高，大部分情况下我们可能并不需要穷举完所有路径，而是仅需要找到某一条符合条件的路径。这种场景下，我们可能会借助 `visited` 数组进行剪枝，提前排除一些不符合条件的路径，从而降低复杂度。
 
-  * Find the shortest path in a weighted graph
+    * **不使用`visited` and `onPath`**
+
+      * Acyclic graph
+
+  * **BFS**
+
+    * ```java
+      // 从 s 开始 BFS 遍历图的所有节点，且记录遍历的步数
+      void bfs(Graph graph, int s) {
+          boolean[] visited = new boolean[graph.size()]; 
+          Queue<Integer> q = new LinkedList<>();
+          q.offer(s);
+          visited[s] = true; 
+          // 记录从 s 开始走到当前节点的步数
+          int step = 0;
+          while (!q.isEmpty()) {
+              int sz = q.size();
+              for (int i = 0; i < sz; i++) {
+                  int cur = q.poll();
+                  System.out.println("visit " + cur + " at step " + step);
+                  for (Edge e : graph.neighbors(cur)) {
+                      if (visited[e.to]) { 
+                          continue;
+                      }
+                      q.offer(e.to);
+                      visited[e.to] = true;
+                  }
+              }
+              step++;
+          }
+      }
+      ```
+
+#### Eulerian Graph
+
+* Origin from the famous **Seven Bridges of Königsberg**
+
+* **Eulerian Path**: 在图中找到一条路径，使得每条边都被遍历恰好一次的路径
+
+* **Eulerian Circuit**: 欧拉路径的特殊情况，即起点和终点是同一个节点的欧拉路径
+
+* **欧拉图（Eulerian Graph）**：存在欧拉回路的图
+
+* **半欧拉图（Semi-Eulerian Graph）**：存在欧拉路径但不存在欧拉回路的图
+
+* **非欧拉图（Non-Eulerian Graph）**：既不存在欧拉路径也不存在欧拉回路的图
+
+* Pattern
+
+  * **Undirected graph**
+    * 欧拉图（存在欧拉回路）的充要条件是 **所有节点的度数都是偶数**。
+    * 半欧拉图（存在欧拉路径）的充要条件是 **有且仅有两个节点的度数为奇数**。
+  * **Directed graph**
+    * 欧拉图（存在欧拉回路）的充要条件是 **每个节点的入度等于出度**。
+    * 半欧拉图（存在欧拉路径）的充要条件是 **有一个节点出度比入度多 1，有一个节点入度比出度多 1，其余节点入度等于出度**。
+
+* Algorithm
+
+  * ```java
+    // Time complexity: O(E + V), because we delete the accessed edge, instead of using boolean[][] visited
+    
+    class HierholzerAlgorithm {
+    
+        // 计算欧拉路径/回路，不存在则返回 null
+        public static List<Integer> findEulerianPath(Graph graph) {
+            // 1. 根据度数确定起点
+            int start = findStartNode(graph);
+            if (start == -1) {
+                // 不存在欧拉路径/回路
+                return null;
+            }
+            
+            // 2. 从起点开始执行 DFS 算法，记录后序遍历结果
+            List<Integer> postOrder = new ArrayList<>();
+            traverse(graph, start, postOrder);
+            
+            // 3. 反转后序遍历结果，即可得到欧拉路径/回路
+            Collections.reverse(postOrder);
+            return postOrder;
+        }
+    
+        // 图结构的 DFS 遍历函数
+        private static void traverse(Graph graph, int u, List<Integer> postOrder) {
+            // base case
+            if (u < 0 || u >= graph.size()) {
+                return;
+            }
+    
+            while (!graph.neighbors(u).isEmpty()) {
+                Edge edge = graph.neighbors(u).get(0);
+                int v = edge.to;
+                // 直接删掉边，避免重复遍历
+                graph.removeEdge(u, v);
+                traverse(graph, v, postOrder);
+            }
+    
+            // 后序位置，记录后序遍历结果
+            postOrder.add(u);
+        }
+    
+        // 根据度数确定起点，如果不存在欧拉路径，返回 -1
+        // 有向图和无向图的代码实现不同
+        private static int findStartNode(Graph graph) {
+            // ...
+        }
+    }
+    ```
+
+  * ```java
+    // 无向图的 findStartNode 函数实现
+    private static int findStartNode(Graph graph) {
+        int start = 0;
+        // 记录奇数度节点的数量
+        int oddDegreeCount = 0;
+        for (int i = 0; i < graph.size(); i++) {
+            if (graph.neighbors(i).size() % 2 == 1) {
+                oddDegreeCount++;
+                start = i;
+            }
+        }
+        // 如果奇数度节点的数量不是 0 或 2，则不存在欧拉路径
+        if (oddDegreeCount != 0 && oddDegreeCount != 2) {
+            return -1;
+        }
+        // 如果奇数度节点的数量是 0，则任意节点都可以作为起点，此时 start=0
+        // 如果奇数度节点的数量是 2，任意一个奇数度节点作为起点，此时 start 就是奇数度节点
+        return start;
+    }
+    ```
+
+  * ```java
+    // 有向图的 findStartNode 函数实现
+    private static int findStartNode(Graph graph) {
+        // 记录每个节点的入度和出度
+        int[] inDegree = new int[graph.size()];
+        int[] outDegree = new int[graph.size()];
+        for (int i = 0; i < graph.size(); i++) {
+            for (Edge edge : graph.neighbors(i)) {
+                inDegree[edge.to]++;
+                outDegree[i]++;
+            }
+        }
+        // 如果每个节点的入度出度都相同，则存在欧拉回路，任意节点都可以作为起点
+        boolean allSame = true;
+        for (int i = 0; i < graph.size(); i++) {
+            if (inDegree[i] != outDegree[i]) {
+                allSame = false;
+                break;
+            }
+        }
+        if (allSame) {
+            // 任意节点都可以作为起点，就让我们以 0 作为起点吧
+            return 0;
+        }
+    
+        // 现在寻找是否存在节点 x 和 y 满足：
+        // inDegree[x] - outDegree[x] = 1 && inDegree[y] - outDegree[y] = -1
+        // 且其他节点的入度和出度都相等
+        // 如果存在，则 x 是起点，y 是终点
+        int x = -1, y = -1;
+        for (int i = 0; i < graph.size(); i++) {
+            int delta = inDegree[i] - outDegree[i];
+            if (delta == 0) {
+                continue;
+            }
+            if (delta != 1 && delta != -1) {
+                // 不存在欧拉路径
+                return -1;
+            }
+            if (delta == 1 && x == -1) {
+                x = i;
+            } else if (delta == -1 && y == -1) {
+                y = i;
+            } else {
+                // 不存在欧拉路径
+                return -1;
+            }
+        }
+    
+        if (x != -1 && y != -1) {
+            // 存在欧拉路径，x 是起点
+            return x;
+        }
+    
+        return -1;
+    }
+    ```
+
+  * [**Postorder correctiveness analysis**](https://labuladong.online/algo/data-structure/eulerian-graph-hierholzer/#%E6%AD%A3%E7%A1%AE%E6%80%A7%E5%88%86%E6%9E%90-%E5%8F%AF%E9%80%89)
+
+#### Dijkstra algorithm
+
+* Find the shortest path in a non-negative weighted graph
+* A bit more efficient than Bellman-Ford
+
+#### Bellman-Ford algorithm
+
+* Find the shortest path in a weighted graph
 
 ***
 
